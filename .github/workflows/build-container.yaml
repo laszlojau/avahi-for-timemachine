@@ -1,0 +1,28 @@
+---
+name: containers-builder
+on:
+  push:
+    branches:
+      - master
+jobs:
+  avahi-for-timemachine:
+    name: avahi-for-timemachine
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup
+        uses: docker/setup-buildx-action@v1
+      - name: login
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GHCR }}
+      - name: build-push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: ghcr.io/${{ github.repository }}:latest
+          push: true
