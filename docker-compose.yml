@@ -2,7 +2,7 @@
 version: '2'
 services:
   avahi-for-timemachine:
-    image: ghcr.io/laszlojau/avahi-for-timemachine
+    image: ghcr.io/laszlojau/avahi-for-timemachine:latest
     restart: unless-stopped
     network_mode: host
     ports:  # for reference, not used in host network mode
